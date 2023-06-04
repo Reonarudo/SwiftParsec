@@ -1,4 +1,4 @@
-# Getting Started with `SwiftParsec`
+# Getting Started with SwiftParsec
 
 ## Introduction
 SwiftParsec is a pure Swift implementation of the Parsec library. Parsec is a powerful parsing library that uses combinatory parsing to achieve excellent performance and flexibility. With SwiftParsec, you can build complex parsers by combining simple ones.

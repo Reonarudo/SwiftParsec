@@ -1,4 +1,4 @@
-# Advanced Topics with `SwiftParsec`
+# Advanced Topics with SwiftParsec
 
 Welcome to the advanced topics guide for SwiftParsec! In this guide, we'll delve deeper into some of the more complex aspects of using SwiftParsec, including monadic operations and recursive parsers.
 
