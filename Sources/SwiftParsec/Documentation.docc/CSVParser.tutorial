@@ -1,0 +1,80 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Building a CSV Parser with SwiftParsec") {
+            In this tutorial, we'll walk through the process of building a CSV parser using SwiftParsec. The CSV (comma-separated values) format is commonly used for storing tabular data. We'll leverage the power of SwiftParsec's primitive and combinator parsers to create a robust and flexible CSV parser in just a few lines of code.
+            
+            @Image(source: "csv.png", alt: "Building a CSV Parser with SwiftParsec")
+    }
+        
+    @Section(title: "Introduction to SwiftParsec") {
+        
+        @ContentAndMedia {
+            SwiftParsec provides various features for parsing, including primitive parsers, combinator parsers, operators, and basic string parsers. It uses a type alias called GenericParser with three type parameters: ``SwiftParsec/Stream``, ``SwiftParsec/Parsec/UserState-swift.associatedtype``, and ``SwiftParsec/Parsec/Result``. The ``SwiftParsec/Stream`` type represents the type of the input stream to parse, ``SwiftParsec/Parsec/UserState-swift.associatedtype`` is the user-supplied state passed around combined parsers (can be set to Void if not used), and ``SwiftParsec/Parsec/Result`` is the type of the result the parser returns upon success.
+        }
+            
+        @Steps {
+            @Step {
+                Let's start by importing SwiftParsec and setting up the initial structure of our CSV parser.
+                
+                @Code(name: "CSVParser.swift", file: "csv-setup.swift")
+                
+                We define a function `csvParser()` that returns a ``SwiftParsec/GenericParser`` with the specified type parameters. Our CSV parser will parse a string input, not use any user state, and return a two-dimensional array of strings `[[String]]`, representing the parsed CSV data.
+                }
+                
+            @Step {
+                In this step, we define parsers for handling quoted characters.
+                
+                @Code(name: "CSVParser.swift", file: "csv-quoted.swift")
+                
+                The `quotedChars` parser combines two alternatives using the ``SwiftParsec/GenericParser/___(_:_:)-t050`` operator. The first alternative, `noneOf("\"")`, matches any character not equal to a double quote using ``SwiftParsec/GenericParser/noneOf(_:)``. The second alternative, `StringParser.string("\"\"").attempt *> GenericParser(result: "\"")`, handles the case of two consecutive double quotes. By using the ``/SwiftParsec/GenericParser/attempt`` combinator with the ``SwiftParsec/*_(_:_:)`` operator, we discard the result of matching two consecutive double quotes and keep the result of a single double quote. This ensures that we return a single double quote as the result when parsing quoted characters.
+                }
+                
+            @Step {
+                In this step, we define parsers for parsing fields, both quoted and non-quoted.
+                
+                @Code(name: "CSVParser.swift", file: "csv-fields.swift")
+                
+                We create a `character` constant using ``/SwiftParsec/Parsec/character(_:)`` to match a single character. The `quotedField` parser handles fields enclosed in double quotes by parsing the opening quote, applying the `quotedChars` parser multiple times using the ``/SwiftParsec/GenericParser/many`` combinator, and parsing the closing quote. The `field` parser uses the ``SwiftParsec/GenericParser/___(_:_:)-t050`` operator to try parsing a `quotedField` first and, if it fails, tries parsing a non-quoted field using the `noneOf` parser.
+                }
+                        
+            @Step {
+                In this step, we define a parser for parsing records, which consist of multiple fields separated by commas.
+                
+                @Code(name: "CSVParser.swift", file: "csv-records.swift")
+                
+                The `record` parser uses the `field` parser followed by the ``SwiftParsec/GenericParser/separatedBy(_:)`` combinator with the `character(",")` parser.
+                }
+                            
+            @Step {
+                In this step, we handle parsing the end of a line in the CSV.
+                
+                @Code(name: "CSVParser.swift", file: "csv-crlf.swift")
+                
+                We define the `endOfLine` parser using various options, including matching combinations of carriage return and newline characters, as well as individual newline and carriage return characters.
+                }
+                                
+            @Step {
+                In this step, we combine the `record` parser with the `endOfLine` parser to create our CSV parser.
+                
+                @Code(name: "CSVParser.swift", file: "csv-parser.swift")
+                
+                The `csv` parser allows parsing zero or more records separated by the `endOfLine` parser.
+                }
+                                    
+            @Step {
+                In this final step, you can pass a sample CSV string to the `csvParser().test()` function to test the parser and see the parsed output.
+                
+                @Code(name: "CSVParser.swift", file: "csv-testing.swift")
+                
+                The `csvData` variable contains a sample CSV string with multiple records and fields. We pass this string to the `csvParser().test()` function, which applies our CSV parser to the input and returns the parsed result into the `result` variable, which is a two-dimensional array of strings. We then print the `result` to see the parsed CSV data.
+                }
+                                        
+            @Step {
+                When you run this code, the output will be the parsed CSV data represented as a two-dimensional array of strings, where each inner array corresponds to a record and contains the individual field values.
+                
+                @Code(name: "Output", file: "csv-testing-result.swift", reset: true)
+                
+                }
+        }
+    }
+}
+                        

@@ -1,3 +1,9 @@
+# Release 4.1.0
+
+Bumped min Swift version to 5.6 for DooC support
+Converted project to fully SPM managed
+Converted exisitng documentation into DooC
+
 # Release 4.0.1
 
 Fix compilation error in Xcode 12.5

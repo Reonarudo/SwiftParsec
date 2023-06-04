@@ -143,66 +143,52 @@ class JSONBenchmarkTests: XCTestCase {
             nullCount: 0
         )
         
-        #if SWIFT_PACKAGE
+        let bundle = Bundle.module
         
-        let bundle = Bundle(path: "Tests/SwiftParsecTests")!
+
         
-        #else
-        
-        let bundle = Bundle(for: type(of: self))
-        
-        #endif
-        
-        let path = bundle.path(forResource: "SampleJSON", ofType: "json")!
-        
+        let path = bundle.path(forResource: "SampleJSON", ofType: "json", inDirectory: "Resources")
+
         let jsonData = try! String(
-            contentsOfFile: path,
+            contentsOfFile: path!,
             encoding: String.Encoding.utf8
         );
-        
+
         var statistics: JSONStatistics?
-        
+
         let statisticsParser = jsonParser *>
-            GenericParser<String, JSONStatistics, JSONStatistics>.userState
+        GenericParser<String, JSONStatistics, JSONStatistics>.userState
         self.measure {
             do {
-                
+
                 let stats = try statisticsParser.run(
                     userState: initialState,
                     sourceName: "",
                     input: jsonData
                 )
-                
+
                 statistics = stats
-                
+
             } catch let error {
-                
+
                 XCTFail(String(describing: error))
-                
+
             }
-            
+
         }
-        
+
         if let stats = statistics {
-            
+
             XCTAssertEqual(3, stats.booleanCount)
             XCTAssertEqual(1503, stats.numberCount)
             XCTAssertEqual(3015, stats.stringCount)
             XCTAssertEqual(999, stats.arrayCount)
             XCTAssertEqual(1015, stats.objectCount)
             XCTAssertEqual(2, stats.nullCount)
-            
-        }
-        
-    }
-    
-}
 
-extension JSONBenchmarkTests {
-    static var allTests: [(String, (JSONBenchmarkTests) -> () throws -> Void)] {
-        return [
-            ("testJSONStatisticsParserPerformance",
-             testJSONStatisticsParserPerformance)
-        ]
+        }
+
     }
+
+    
 }

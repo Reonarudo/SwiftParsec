@@ -1152,31 +1152,3 @@ class CombinatorParsersTests: XCTestCase {
     }
     
 }
-
-extension CombinatorParsersTests {
-    static var allTests:
-    [(String, (CombinatorParsersTests) -> () throws -> Void)] {
-        return [
-            ("testChoice", testChoice),
-            ("testOtherwise", testOtherwise),
-            ("testOptional", testOptional),
-            ("testDiscard", testDiscard),
-            ("testBetween", testBetween),
-            ("testSkipMany1", testSkipMany1),
-            ("testMany1", testMany1),
-            ("testSeparatedBy", testSeparatedBy),
-            ("testSeparatedBy1", testSeparatedBy1),
-            ("testDividedBy", testDividedBy),
-            ("testDividedBy1", testDividedBy1),
-            ("testCount", testCount),
-            ("testChainRight", testChainRight),
-            ("testChainRight1", testChainRight1),
-            ("testChainLeft", testChainLeft),
-            ("testChainLeft1", testChainLeft1),
-            ("testNoOccurence", testNoOccurence),
-            ("testManyTill", testManyTill),
-            ("testRecursive", testRecursive),
-            ("testEof", testEof)
-        ]
-    }
-}

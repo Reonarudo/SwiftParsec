@@ -1,4 +1,4 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 //  Package.swift
@@ -13,14 +13,25 @@ import PackageDescription
 let package = Package(
     name: "SwiftParsec",
     products: [
-        // Products define the executables and libraries produced by a package, and
-        // make them visible to other packages.
+        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "SwiftParsec",
-            targets: ["SwiftParsec"]
-        ),
+            targets: ["SwiftParsec"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
-        .target(name: "SwiftParsec"),
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "SwiftParsec"),
+        .testTarget(
+            name: "SwiftParsecTests",
+            dependencies: ["SwiftParsec"],
+            resources: [
+                .copy("Resources")
+            ]),
     ]
 )
+

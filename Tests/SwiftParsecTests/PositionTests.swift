@@ -117,14 +117,3 @@ class PositionTests: XCTestCase {
     }
     
 }
-
-extension PositionTests {
-    static var allTests: [(String, (PositionTests) -> () throws -> Void)] {
-        return [
-            ("testComparable", testComparable),
-            ("testColumnPosition", testColumnPosition),
-            ("testLineColumnPosition", testLineColumnPosition),
-            ("testTabPosition", testTabPosition)
-        ]
-    }
-}

@@ -958,7 +958,7 @@ where StreamType.Iterator.Element: Equatable {
                         message: tokDesc
                     )
                     
-                    let expected = Message.expected(tokensDescription(tokens))
+                    let expected = ErrorMessage.expected(tokensDescription(tokens))
                     expectedError.insertMessage(expected)
                     
                     return consumedConstructor(.error(expectedError))

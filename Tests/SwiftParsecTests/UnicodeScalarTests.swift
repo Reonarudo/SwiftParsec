@@ -75,12 +75,3 @@ class UnicodeScalarTests: XCTestCase {
     }
     
 }
-
-extension UnicodeScalarTests {
-    static var allTests: [(String, (UnicodeScalarTests) -> () throws -> Void)] {
-        return [
-            ("testFromInt", testFromInt),
-            ("testFromUInt32", testFromUInt32)
-        ]
-    }
-}

@@ -1,0 +1,126 @@
+@Tutorial(time: 20) {
+    @Intro(title: "Building a JSON Parser with SwiftParsec") {
+        In this tutorial, we will explore the process of building a JSON parser using a tokenizer. While Swift already provides native support for JSON parsing using Codable, understanding the underlying principles and techniques can be valuable. We will leverage the power of SwiftParsec, which offers a GenericTokenParser type that simplifies the creation of tokenizers. By following this tutorial, you will gain insights into how JSON parsing works and enhance your understanding of parsing techniques in Swift. It's worth noting that for most use cases, you can rely on Swift's Codable protocol for JSON parsing. However, building a JSON parser from scratch allows us to dive deeper into the inner workings and principles of parsing in Swift. So let's get started and build our own JSON parser!
+    }
+    
+    @Section(title: "Digging Deeper") {
+        @ContentAndMedia {
+            Throughout this tutorial, we'll explore the steps involved in building a JSON parser using the SwiftParsec library. We'll cover tokenizing, parsing different JSON value types, handling recursive structures like arrays and objects, and accessing individual values from the parsed JSON structure.
+            
+        }
+        
+        @Steps {
+            @Step {
+                In this step, we will set up the JSON parser using a tokenizer.
+                
+                @Code(name: "JSONParser.swift", file: "json-1.swift")
+                
+                We will be using the SwiftParsec library, which provides a type called GenericTokenParser that helps us build tokenizers. The JSON format is defined in RFC 4627. The parser will generate a data structure built from an enum representing the different JSON values.
+            }
+            
+            @Step {
+                In this step, we will define parsers for symbols and string literals.
+                
+                @Code(name: "JSONParser.swift", file: "json-2.swift")
+                
+                The symbol parser will parse symbols and skip any trailing white space, while the stringLiteral parser will parse strings and take care of any escaped characters.
+            }
+            
+            @Step {
+                In this step, we will define parsers for symbols and string literals.
+                
+                @Code(name: "JSONParser.swift", file: "json-3.swift")
+                
+                The `jstring` parser will parse a string literal and return a value of `JSONValue.JString` associated with the parsed string.
+            }
+            
+            @Step {
+                In this step, we will create a parser to parse JSON number values.
+                
+                @Code(name: "JSONParser.swift", file: "json-4.swift")
+                
+                The `jnumber` parser will parse a number literal and return a value of `JSONValue.JNumber` associated with the parsed number. We use the `float` and `integerAsFloat` parsers provided by `GenericTokenParser` to handle the different representations of numbers in JSON.
+            }
+            
+            @Step {
+                In this step, we will create a parser to parse JSON boolean values.
+                
+                @Code(name: "JSONParser.swift", file: "json-5.swift")
+                
+                The `jbool` parser will parse either "true" or "false" and return a value of `JSONValue.JBool` associated with the parsed boolean.
+            }
+            
+            @Step {
+                In this step, we will create a parser to parse the JSON null value.
+                
+                @Code(name: "JSONParser.swift", file: "json-6.swift")
+                
+                The `jnull` parser will parse the string "null" and return a value of `JSONValue.JNull`.
+            }
+            
+        @Step {
+            In this step, we will define recursive parsers for JSON arrays and objects.
+            
+            @Code(name: "JSONParser.swift", file: "json-7.swift")
+            
+            Since arrays and objects can contain other JSON values, including themselves, we need to create recursive parsers for handling them.
+        }
+        
+        @Step {
+            In this step, we will define a parser to parse JSON arrays.
+            
+            @Code(name: "JSONParser.swift", file: "json-8.swift")
+            
+            The `jarray` parser will parse zero or more JSON values separated by commas and enclosed in brackets.
+        }
+        
+        @Step {
+            In this step, we will define a parser to parse JSON objects.
+            
+            @Code(name: "JSONParser.swift", file: "json-9.swift")
+            
+            The `jobject` parser will parse one or more name/value pairs enclosed in curly braces.
+        }
+        
+        @Step {
+            In this step, we will combine all the JSON value parsers we defined so far.
+            
+            @Code(name: "JSONParser.swift", file: "json-10.swift")
+            
+            The parsers for string, number, boolean, null, array, and object will be combined using the `<|>` operator to create the final JSON value parser.
+        }
+        
+        @Step {
+            In this step, we will complete the JSON parser by adding necessary code to handle whitespace and running the parser with the input data.
+            
+            @Code(name: "JSONParser.swift", file: "json-11.swift")
+            
+            We handle any leading whitespace using `lexer.whiteSpace` and then parse either an object or an array using `<|>` operator.
+        }
+        
+        @Step {
+            In this step, we add an initializer to the `JSONValue` enum that takes a string as input and uses the JSON parser to parse the input data.
+            
+            @Code(name: "JSONParser.swift", file: "json-12.swift")
+            
+            The initializer uses the `run` method of the JSON parser to parse the input data and assign the parsed value to `self`.
+        }
+        
+        @Step {
+            In this step, we add subscript methods and computed properties to the `JSONValue` enum to access individual values in the JSON structure.
+            
+            @Code(name: "JSONParser.swift", file: "json-13.swift")
+            
+            These subscript methods and computed properties provide convenient access to individual values within the JSON structure.
+        }
+        
+        @Step {
+            In this step, we provide an example usage of the JSON parser and demonstrate how to retrieve individual values from the parsed JSON structure.
+            
+            @Code(name: "JSONParser.swift", file: "json-14.swift")
+            
+            This example demonstrates how to parse a JSON text and retrieve individual values from the parsed JSON structure.
+            }
+    }
+
+}
