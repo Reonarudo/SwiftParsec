@@ -17,11 +17,8 @@ SwiftParsec is your passport to a world of expressiveness, simplicity, and excel
 - **Extensive Error Messages:** Debugging made easy with detailed and helpful error messages.
 - **Unicode Support:** Embrace the diversity of languages with full Unicode support.
 
-📚 Documentation
-- [Getting Started with SwiftParsec](#) - A comprehensive guide to help you get started with SwiftParsec. Covers installation, creating simple parsers, combining parsers, and handling errors.
-
 📜 License
-SwiftParsec is proudly released under the “Simplified BSD License”. For more details, please refer to the LICENSE file in the repository.
+SwiftParsec is released under the “Simplified BSD License”. For more details, please refer to the LICENSE file in the repository.
 
 ---
 

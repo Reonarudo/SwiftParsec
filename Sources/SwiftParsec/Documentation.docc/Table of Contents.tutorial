@@ -9,7 +9,7 @@
     @Chapter(name: "Building a CSV Parser with SwiftParsec") {
         Let's get started with building our CSV parser! In this section, we'll set up the initial structure of our parser and explore the type parameters used in SwiftParsec. We'll lay the foundation for our CSV parser and ensure everything is in place for the exciting parsing journey ahead.
         
-        @Image(source: "csv.png", alt: "Building a CSV Parser with SwiftParsec")
+        @Image(source: "csvlogo.png", alt: "Building a CSV Parser with SwiftParsec")
         
         @TutorialReference(tutorial: "doc:CSVParser")
     }
@@ -17,7 +17,7 @@
     @Chapter(name: "Building a JSON Parser with SwiftParsec") {
         Let's embark on the fascinating journey of building our own JSON parser! In this tutorial, we will dive into the implementation of a JSON parser using the SwiftParsec library. While Swift already provides native support for parsing JSON using Codable, understanding the inner workings of a JSON parser can greatly enhance your understanding of parsing concepts.
         
-        @Image(source: "csv.png", alt: "Building a JSON Parser with SwiftParsec")
+        @Image(source: "jsonlogo.png", alt: "Building a JSON Parser with SwiftParsec")
         
         @TutorialReference(tutorial: "doc:JSONParser")
     }
